@@ -1,0 +1,231 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui">
+
+	<h:head></h:head>
+	
+	<h:body>
+		<b:container>
+			<b:column span = "3">
+				<b:form id = "frmMenu">
+					<b:column>
+					  <b:panel title="Menu Principal" collapsible="false">
+					    <b:listLinks>
+					    	<b:navCommandLink value="Cadastro Geral" action="cadastroGeral.xhtml?faces-redirect=true"/>
+					    	<b:navCommandLink value="Reservas" action="index.xhtml?faces-redirect=true"/>
+						    <b:navCommandLink value="Relatórios" action = "relatorios.xhtml?faces-redirect=true" />
+						    <b:navCommandLink value="Dados da Empresa" action="meusDados.xhtml?faces-redirect=true" />
+						    <b:navCommandLink value="Sair" action = "#{mbLogin.logout}" />
+
+						    <b:navCommandLink />
+					 
+					    </b:listLinks>
+					  </b:panel>
+					</b:column>
+				</b:form>
+			</b:column>	
+	 		
+	 		<b:column span = "9"> <!-- Início da "div" que possui as abas (conteúdo) -->
+		 		<b:panel>
+					<b:tabView> <!-- Início do componente de abas -->
+					  <b:tab title="Horários" id = "tbHorarios"> <!-- Início da aba de Horários -->
+					  
+						<b:form id="frmDadosRest" horizontal="true"> <!-- Início do form principal (frmDadosRest) -->					  
+						  	<b:row>
+						  		<b:column>
+	                    			<b:inputText placeholder="Horário" label="Horário" value = "#{mbRestaurante.horario.horario}"
+	                    						 span = "8" colMd="10" labelColMd="2" required = "true" />
+	                    		</b:column>
+	                    	</b:row>	
+	                    	<b:row>
+		                    	<b:column span = "3" offset = "4">
+		                        	<b:commandButton value="Incluir" look="info" 
+		                        					 ajax = "true" 
+		                        					 action = "#{mbRestaurante.addHorario}"
+		                        					 update = "@form"
+		                                             style="width:100%" />
+		                        </b:column>
+		                        
+			                    <b:column>
+			                    	<b:messages /> <!-- Exibição da mensagem de validação -->
+			                    </b:column>
+		                        
+	                        </b:row>
+	                        
+	                        <hr/>
+	                        
+	                        <b:row> <!-- Início da listagem de horários -->
+	                        	<b:form id = "frmListaHorarios">
+		                        	<b:dataTable id = "listagemHorarios" value = "#{mbRestaurante.restaurante.horarios}" 
+		                        				 var = "horario"
+		                        				 customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json">
+		                        		<b:dataTableColumn value = "#{horario.horario}" label = "Horário" />
+		                        		
+										<b:dataTableColumn label="Exclusão">
+											<b:commandButton value="Excluir Horário" id = "btRemoveHorario"
+															 ajax = "true" look = "danger"
+															 action = "#{mbRestaurante.removeHorario(horario)}"
+			                        					 	 update = "tbHorarios:frmDadosRest:frmListaHorarios:listagemHorarios" />
+										</b:dataTableColumn>
+		                        	</b:dataTable> 
+							  </b:form>
+	                        </b:row> <!-- Final da listagem de horários -->
+	                        
+	         
+	                        <b:growl id="growlMsg" globalOnly="true" placementFrom="bottom"
+                                show-detail="true" show-summary="false" allowDismiss="true"
+                                delay="10000" escape="true" /> <!-- Exibição das mensagens de confirmação da alteração -->
+                            
+                            
+                            <b:form id = "frmGrava">    
+	                            <b:column span = "3" offset = "4">
+			                    	<b:commandButton value="Gravar alterações" look="primary" id = "btgrava"
+			                        				 action = "#{mbRestaurante.alterarRestaurante}"
+			                                		 ajax = "true" 
+			                                         style="width:100%" 
+			                                         update = ":tbHorarios:frmDadosRest"/>
+			                    </b:column> 
+			                    
+		                    </b:form> 
+
+                    	</b:form>	<!-- Final do frmDadosRest (Form Principal) -->
+					  </b:tab> <!-- Final da aba de horários -->
+					  
+					  <b:tab title="Cardápios" id = "tbCardapios"> <!-- Inicio da aba de cardápios -->
+					    
+					    <b:form horizontal="true" id="frmCadCardapio">
+                    		<b:row>
+                    			<b:inputText placeholder="Nome do Prato" label="Nome do Prato" 
+                    						 value = "#{mbRestaurante.cardapio.prato}"
+                    						 span = "8" colMd="10" labelColMd="2" required = "true" />
+                    						 
+                    			<b:inputText placeholder="Preço" label="Preço"
+                    						 value = "#{mbRestaurante.cardapio.valor}"
+                    						 span = "8" colMd="10" labelColMd="2" required = "true"/>
+                    						 
+                    			<b:column span = "3" offset = "4">
+		                        	<b:commandButton value="Incluir" look="info"
+		                                				 ajax = "true" 
+		                                				 action = "#{mbRestaurante.addCardapio}"
+		                                				 update = "@form"
+		                                                 style="width:100%" />
+		                        </b:column>	
+		                        
+		                        <b:column>
+			                    	<b:messages /> <!-- Exibição da mensagem de validação -->
+			                    </b:column>		 			 
+					    	</b:row>
+					    	
+					    	<hr/>
+	                        
+	                        <b:row>
+	                        	<b:form id = "frmListaCardapios">
+		                        	<b:dataTable id = "listaCardapios" value = "#{mbRestaurante.restaurante.cardapios}" 
+		                        				 var = "cardapio"
+		                        				 customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json">
+		                        		<b:dataTableColumn value = "#{cardapio.prato}" label = "Nome do Prato" />
+		                        		<b:dataTableColumn value = "#{cardapio.valor}" label = "Preço" />
+					
+										<b:dataTableColumn label="Exclusão">
+											<b:commandButton value="Excluir Cardápio" id = "btRemoveCardapio"
+															 ajax = "true" look = "danger"/>
+										</b:dataTableColumn>
+		                        		
+		                        	</b:dataTable> 
+		                        </b:form>	
+	                        </b:row>
+	                        
+	                        <b:growl id="growlMsg" globalOnly="true" placementFrom="bottom"
+                                show-detail="true" show-summary="false" allowDismiss="true"
+                                delay="10000" escape="true" /> <!-- Exibição das mensagens de confirmação -->
+					    	
+					    	<b:form id = "frmGravacadrapios">
+					    	
+						    	<b:column span = "3" offset = "4">
+			                    	<b:commandButton value="Gravar alterações" look="primary"
+			                        				 action = "#{mbRestaurante.alterarRestaurante}"
+			                                		 ajax = "true" 
+			                                		 update = ":tbCardapios:frmCadCardapio"
+			                                         style="width:100%" />
+			                    </b:column> 
+			                </b:form>    
+					    	
+					    </b:form>	
+					  </b:tab> <!-- Final da aba de cardápios -->
+					  
+					  <b:tab title="Mesas" id = "tbMesas"> <!-- Início da aba de cardápios -->
+					    
+					    <b:form horizontal="true" id="frmCadMesas">
+                    		<b:row>
+                    			<b:inputText placeholder="Mesa" label="Identificação da Mesa"
+                    						 value = "#{mbRestaurante.mesa.mesa}"
+                    						 span = "8" colMd="10" labelColMd="2" required = "true" />
+                    						 
+                    			<b:inputText placeholder="Qtd Pessoas" label="Quantidade de Pessoas" type = "text"
+                    						 value = "#{mbRestaurante.mesa.qtdPessoas}"
+                    						 span = "8" colMd="10" labelColMd="2" required = "true" />
+                    						 
+                    			<b:column span = "3" offset = "4">
+		                        	<b:commandButton value="Incluir" look="info"
+		                                				 ajax = "true" 
+		                                				 action = "#{mbRestaurante.addMesa}"
+		                                				 update = "@form"
+		                                                 style="width:100%" />
+		                        </b:column>	
+		                        
+		                        <b:column>
+			                    	<b:messages /> <!-- Exibição da mensagem de validação -->
+			                    </b:column>			 			 
+					    	</b:row>
+					    	
+					    	<hr/>
+	                        
+	                        <b:row>
+	                        	<b:form id = "frmListaMesas">
+		                        	<b:dataTable id = "listaMesas" value = "#{mbRestaurante.restaurante.mesas}" var = "mesa"
+		                        	customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json">
+		                        		<b:dataTableColumn value = "#{mesa.mesa}" label = "Mesa" />
+		                        		<b:dataTableColumn value = "#{mesa.qtdPessoas}" label = "Quantidade de Pessoas" />
+					
+										<b:dataTableColumn label="Exclusão">
+											<b:commandButton value="Excluir Mesa" id = "btRemoveMesa"
+															 ajax = "true" look = "danger"/>
+										</b:dataTableColumn>
+		                        		
+		                        	</b:dataTable> 
+		                        </b:form>	
+	                        </b:row>
+	                        
+	                        <b:growl id="growlMsg" globalOnly="true" placementFrom="bottom"
+                                show-detail="true" show-summary="false" allowDismiss="true"
+                                delay="10000" escape="true" /> <!-- Exibição das mensagens de confirmação -->
+					    	
+					    	<b:form id = "frmGravaMesas">
+					    	
+						    	<b:column span = "3" offset = "4">
+			                    	<b:commandButton value="Gravar alterações" look="primary"
+			                        				 action = "#{mbRestaurante.alterarRestaurante}"
+			                                		 ajax = "true" 
+			                                		 update = ":tbMesas:frmCadMesas"
+			                                         style="width:100%" />
+			                    </b:column> 
+					    	</b:form>
+					    	
+					    </b:form>
+					    
+					  </b:tab> <!-- Final da aba de mesas -->
+					  
+					</b:tabView> <!-- Final do componente de abas -->				 
+				</b:panel> <!-- Final do panel principal (bordas) -->
+				
+		 	</b:column>	<!-- Final da "div" que possui as abas (conteúdo) -->
+			
+		</b:container>	
+    </h:body>
+</html>

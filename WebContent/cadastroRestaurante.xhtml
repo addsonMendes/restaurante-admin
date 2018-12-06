@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:b="http://bootsfaces.net/ui">
+
+	<h:head></h:head>
+	<h:body>
+
+		<b:container>
+            <b:row >
+                <b:column>
+                    <h1>Tasty Fast</h1>
+                    <h2>Cadastro de Restaurante</h2>
+                </b:column>
+            </b:row>
+            
+             <b:row> 
+            	<b:panelGrid colSpans = "6,6">
+                <b:panel title="Meus Dados" collapsible="false">
+                    <b:form horizontal="true" id="frmCadRest">
+                    	<b:inputText placeholder="Nome" label="Nome" value = "#{mbRestaurante.restaurante.nome}"  
+                    									span = "8" colMd="10" labelColMd="2" />
+                    									
+						<b:inputText placeholder="Email" label="Email" value = "#{mbRestaurante.restaurante.email}"  
+                    									span = "8" colMd="10" labelColMd="2" />                    									
+                    									
+                         <b:inputText placeholder="Senha" label="Senha"  type = "password" value = "#{mbRestaurante.restaurante.senha}"
+                           									   colMd="10" labelColMd="2" span = "8"/>
+                           									   
+						<b:inputText placeholder="Tipo de Culinária" label="Tipo de Culinária"  type = "text" value = "#{mbRestaurante.restaurante.tipoCulinaria}"
+                           									   colMd="10" labelColMd="2" span = "8"/>
+                           									   
+						<b:inputText placeholder="Horário de Funcionamento" label="Funcionamento"  type = "text" value = "#{mbRestaurante.restaurante.horarioFuncionamento}"
+                           									   colMd="10" labelColMd="2" span = "8"/>                            									                              									   
+                           									   
+						<b:inputText placeholder="CEP" label="CEP" value = "#{mbRestaurante.endereco.cep}" 
+                          								 span = "6" colMd="10" labelColMd="2">
+                          								 
+                            <f:facet name="append">
+                                <b:commandButton look="primary" value="Buscar" ajax="true"  
+                                                 iconAwesome="rss" icon-align="right"
+                                                 action="#{mbRestaurante.buscaCep}"
+                                                 update=":frmCadRest"/>
+                            </f:facet>
+                        </b:inputText>
+                        
+                        <b:inputText placeholder="Logradouro" label="Logradouro" value = "#{mbRestaurante.endereco.logradouro}" 
+                        									  colMd="10" labelColMd="2" span = "8"/>
+                        
+                        <b:inputText placeholder="Bairro" label="Bairro" value = "#{mbRestaurante.endereco.bairro}" 
+                        								  colMd="10" labelColMd="2" span = "8"/>
+                        
+                        <b:inputText placeholder="Cidade" label="Cidade" value = "#{mbRestaurante.endereco.cidade}" 
+                        								  colMd="10" labelColMd="2" span = "8"/>
+                        
+                        <b:inputText placeholder="UF" label="Estado" value = "#{mbRestaurante.endereco.estado}" 
+                        								  colMd="10" labelColMd="2" span = "3"/>                           									   
+                        
+                        <b:row>
+                            <b:column span="4" offset="2">
+                                <b:commandButton value="Confirmar" look="primary"
+                                				 ajax = "true" 
+                                                 style="width:100%"
+                                                 action = "#{mbRestaurante.cadastraRestaurante}"
+                                                 update = ":frmCadRest" />
+                            </b:column>
+                            <b:column span="4">
+                                <b:commandButton value="Limpar"
+                                				 style="width:100%"
+                                				 ajax = "true"
+                                				 action = "#{mbRestaurante.limpaCampos}"
+                                				 update = ":frmCadRest" />
+                            </b:column>
+                        </b:row>
+
+                        <b:growl id="growlMsg" globalOnly="true" placementFrom="bottom"
+                                show-detail="true" show-summary="false" allowDismiss="true"
+                                delay="10000" escape="true" /> 
+                        
+                    </b:form>
+                </b:panel>
+                </b:panelGrid>
+              </b:row>
+		</b:container>
+		
+	</h:body>
+</html>

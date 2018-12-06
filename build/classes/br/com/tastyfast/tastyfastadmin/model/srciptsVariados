@@ -1,0 +1,142 @@
+<!-- <p:panel header="Inclusão de Restaurantes">
+			<h:form id="frmCadRestaurante">
+				<p:panelGrid columns="2">
+					<h:outputText value="Nome do Restaurante"/>
+					<p:inputText value="#{mbRestaurante.restaurante.nome}" size = "50" required = "true"></p:inputText>
+				
+					<h:outputText value="Endereço" />
+					<p:inputText value="#{mbRestaurante.restaurante.endereco}" size = "50" required = "true"></p:inputText>
+				</p:panelGrid>
+				<p:commandButton value="Gravar os Dados"
+								 action="#{mbRestaurante.cadastraRestaurante}"
+								 ajax="true"
+								 update=":frmCadRestaurante"></p:commandButton>
+				
+				<p:messages closable = "true"></p:messages>
+				
+			</h:form>
+		</p:panel> -->
+		
+		<p:column headerText="Alterar">
+						<p:commandButton value="Alterar"
+										 action="#{mbRestaurante.alterarRestaurante}"
+										 ajax="true"
+										 update=":frmListaRestaurante">
+						<f:setPropertyActionListener value="#{linha}" target="#{mbRestaurante.restaurante}"></f:setPropertyActionListener>
+						</p:commandButton>
+					</p:column>
+					
+					
+					<p:column headerText="Excluir">
+						<p:commandButton value="Excluir"
+										 action="#{mbRestaurante.excluirRestaurante}"
+										 ajax="true"
+										 update=":frmListaRestaurante">
+							<f:setPropertyActionListener value="#{linha}" target="#{mbRestaurante.restaurante}"></f:setPropertyActionListener>
+						</p:commandButton>
+					</p:column>
+					
+					
+-----------------------------------------------------
+
+<b:inputText placeholder="CEP" label="CEP" value = "#{mbRestaurante.endereco.cep}" 
+                          								 span = "6" colMd="10" labelColMd="2">
+						                          								 
+                            <f:facet name="append">
+                                <b:commandButton look="primary" value="Buscar" ajax="true"  
+                                                 iconAwesome="rss" icon-align="right"
+                                                 action = "#{mbRestaurante.buscaCep}"
+                                                 update=":frmDadosRest" />
+                            </f:facet>
+                        </b:inputText>
+                        
+                        <b:inputText placeholder="Logradouro" label="Logradouro" value = "#{mbRestaurante.endereco.logradouro}" 
+                        									  colMd="10" labelColMd="2" span = "8"/>
+                        
+                        <b:inputText placeholder="Bairro" label="Bairro" value = "#{mbRestaurante.endereco.bairro}" 
+                        								  colMd="10" labelColMd="2" span = "8"/>
+                        
+                        <b:inputText placeholder="Cidade" label="Cidade" value = "#{mbRestaurante.endereco.cidade}" 
+                        								  colMd="10" labelColMd="2" span = "8"/>
+                        
+                        <b:inputText placeholder="UF" label="Estado" value = "#{mbRestaurante.endereco.estado}" 
+                        								  colMd="10" labelColMd="2" span = "3"/>
+                        								  
+---------------------------------------------------------------------------	
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui">
+
+	<h:head>
+		<style>
+			* {
+				    box-sizing: border-box;
+				}
+				.header, .footer {
+				    background-color: grey;
+				    color: white;
+				    padding: 15px;
+				}
+				.column {
+				    float: left;
+				    padding: 15px;
+				}
+				.clearfix::after {
+				    content: "";
+				    clear: both;
+				    display: table;
+				}
+				.menu {
+				    width: 25%;
+				}
+				.content {
+				    width: 75%;
+				}
+				
+		</style>
+	</h:head>
+	
+	<h:body>
+		<div id="index" class="clearfix" >
+		
+ 		    <div id="menu" class="column menu">
+				<b:form id = "form">
+					<b:column>
+					  <b:panel look="primary" title="Menu Principal" collapsible="false">
+					    <b:listLinks>
+					    	<b:navCommandLink value="Reservas" actionListener="#{mbMenu.entrarHome}"/>
+						    <b:navCommandLink value="Clientes" />
+						    <b:navCommandLink value="Dados da Empresa" actionListener = "#{mbMenu.entrarMeusDados}" />
+						    <b:navCommandLink value="Sair" action = "#{mbLogin.logout}" />
+
+						    <b:navCommandLink />
+					 
+					    </b:listLinks>
+					  </b:panel>
+					</b:column>
+				</b:form>
+		    </div>
+	 		
+	 		<b:form id = "conteudo">
+			    <div id="content" class="column content">
+				  	<ui:insert name="content" >
+				 	  <ui:include src="#{mbMenu.pagina}" />
+				   	</ui:insert>
+			    </div>
+			</b:form>
+		</div> 
+    </h:body>
+</html>
+
+
+------------------------------------------
+
+				

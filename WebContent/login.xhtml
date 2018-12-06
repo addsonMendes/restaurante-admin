@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:b="http://bootsfaces.net/ui">
+
+	<h:head>
+		<link href="css/arquivo.css" rel="stylesheet" />
+	</h:head>
+	
+	<h:body>
+		<br/>
+		
+		<b:column span = "5" offset = "4">
+			<b:row>
+				<div align = "center"><img src = "images/logoFinal.jpg"></img></div>
+				<br/>
+				<br/>
+			</b:row>
+		</b:column>	
+
+		<b:column span = "5" offset = "4">
+			<b:row styleClass = "show-grid">
+					<b:panel title = "Login de Usuário" collapsible="false" >
+						<b:form id = "frmLogin">
+						  <b:inputText value = "#{mbLogin.restaurante.email}" 
+						               label="Usuario" required = "true" />
+						  <b:inputText value = "#{mbLogin.restaurante.senha}" type = "password"
+						               label="Senha" required = "true"/>
+						   
+						  <b:column offset = "5">             
+							  <b:commandButton value="Login" 
+							  				   action = "#{mbLogin.login}"
+							  				   update = "frmLogin" />
+						  </b:column>
+						  		
+						  <b:column>
+						  	<b:messages /> <!-- Exibição das mensagens de validação do login -->
+						  </b:column>							  		
+						  				   
+						  <br/>
+						  <br/>			
+						  	<b:form id = "frmRedirectCadRest">
+							
+							  <b:column span = "12" offset = "4">	   
+							  	<b:navCommandLink value = "Cadastre seu restaurante" 
+							  					  action = "cadastroRestaurante.xhtml?faces-redirect=true"
+							  					  update = "frmLogin:frmRedirectCadRest"/>
+							  </b:column>
+							  							  				    
+				  		    </b:form>  
+				  		    
+						</b:form>
+					</b:panel>
+			</b:row>
+		</b:column>
+	
+	</h:body>
+
+</html>

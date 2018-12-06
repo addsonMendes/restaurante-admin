@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui">
+
+	<h:head></h:head>
+	
+	<h:body>
+		<b:container>
+			<b:column span = "3">
+				<b:form id = "form">
+					<b:column>
+					  <b:panel title="Menu Principal" collapsible="false">
+					    <b:listLinks>
+					    	<b:navCommandLink value="Cadastro Geral" action="cadastroGeral.xhtml?faces-redirect=true"/>
+					    	<b:navCommandLink value="Reservas" action="index.xhtml?faces-redirect=true"/>
+						    <b:navCommandLink value="Relatórios" action = "relatorios.xhtml?faces-redirect=true"/>
+						    <b:navCommandLink value="Dados da Empresa" action="meusDados.xhtml?faces-redirect=true" />
+						    <b:navCommandLink value="Sair" action = "#{mbLogin.logout}" />
+
+						    <b:navCommandLink />
+					 
+					    </b:listLinks>
+					  </b:panel>
+					</b:column>
+				</b:form>
+			</b:column>	
+	 		
+	 		<b:column span = "9">
+		 		<b:panel>
+					<h2 align="center">Notificações</h2>
+				</b:panel>
+				
+				<b:panel>
+					<h:form id = "frmListaClientesNotificacoes">
+						<h4>Selecione os clientes que receberão a notificação</h4>
+						  <b:panelGrid size="xs" columns="2">
+						    <b:selectOneMenu value="#{mbNotificacao.tipoRelatorio}">
+						    <f:selectItem itemLabel="" itemValue="" />
+						     <f:selectItem itemLabel="Todos os clientes" itemValue="todosOsClientes" />
+						     <f:selectItem itemLabel="Listagem Customizada" itemValue="" itemDisabled = "true"/>
+						    </b:selectOneMenu>
+						  </b:panelGrid>
+						  <b:commandButton value="Listar Clientes" look="primary"
+	                                		style="width:30%"
+	                                		ajax = "true"
+	                                		action = "#{mbNotificacao.geraRelatorios()}"
+	                                		update = ":frmEnviaNotificacoes" />
+					</h:form>
+					
+					<h:form id = "frmEnviaNotificacoes">
+
+						<b:dataTable value="#{mbNotificacao.clientes}" var="cliente" info = "false"  
+									 customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json">
+									 
+									 <b:dataTableColumn value="#{cliente[0]}" label = "Cliente" />
+							
+						</b:dataTable>	
+
+						<b:growl id="growlMsg" globalOnly="true" placementFrom="bottom"
+                                show-detail="true" show-summary="false" allowDismiss="true"
+                                delay="10000" escape="true" /> 
+
+					</h:form>	
+					
+				</b:panel>
+				
+		 	</b:column>	
+			
+		</b:container>	
+    </h:body>
+
+</html>
